@@ -13,9 +13,9 @@ public:
 		for (int i = 0; i < nums.size(); i++) {
 			good_pairs += count[nums[i]];
 			count[nums[i]]++;
+		}
 
 		return good_pairs;
-		}
 	}
 };
 
