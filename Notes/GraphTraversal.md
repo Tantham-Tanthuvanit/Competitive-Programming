@@ -6,3 +6,4 @@
 | METHOD | DOCUMENTATION |
 |---|---|
 |DFS|[DEPTH FIRST SEARCH](./DFS.md)|
+|BACKTRACKING|[BACKTRACKING](./Backtracking.md)|
