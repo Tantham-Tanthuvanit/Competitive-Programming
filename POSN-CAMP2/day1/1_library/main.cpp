@@ -1,42 +1,34 @@
 #include <iostream>
 #include <stack>
 #include <vector>
-#include <string>
 
 using namespace std;
 
 int main() {
+    stack<int> urgent;
+    vector<int> normal;
 
-	string newLn;
-	stack<int> duan;
-	vector<int> maiDuan;
+    int last = -1;
 
-	char c;
+    while (true) {
+        string s;
+        cin >> s;
 
-	while (true) {
-		cin >> c;
-		if (c == 'S') break;
-		if (c != ' ') newLn += c;
-	}
+        if (s == "S") break;
 
-	for (int i = 0; i < newLn.size(); i++) {
-		if (newLn[i] == 'S' || newLn[i] == 'E') continue;
-		if (newLn[i+1] == 'E') duan.push(newLn[i]-'0');
-		else maiDuan.push_back(newLn[i] - '0');
-	}
+        if (s == "E") {
+            urgent.push(last);
+        } else {
+            last = stoi(s);
+            normal.push_back(last);
+        }
+    }
 
-	vector<int> ans;
-	while (!duan.empty()) {
-		ans.push_back(duan.top());
-		duan.pop();
-	}
+    while (!urgent.empty()) {
+        cout << urgent.top() << " ";
+        urgent.pop();
+    }
 
-	for (int i : maiDuan) {
-		ans.push_back(i);
-	}
-
-	for (int i : ans) {
-		cout << i << ' ';
-	}
-
+    for (int x : normal)
+        cout << x << " ";
 }
