@@ -1,0 +1,108 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+
+using namespace std;
+
+struct connection {
+    int vertex = 0;
+    int weight = 0;
+
+    connection(int v, int w) : vertex(v), weight(w) {}
+};
+
+struct Graph {
+    int nvert = 0;
+    
+    // OPTIMIZATION 1: Replaced unordered_map with a 2D vector
+    vector<vector<connection>> adj;
+
+    // Constructor to safely size the adjacency list upfront
+    Graph(int n) {
+        nvert = n + 1; // +1 protects against 1-based indexing crashes!
+        adj.resize(nvert);
+    }
+
+    void addEdge(int v, int u, int w) {
+        // Double check to prevent out-of-bounds if bad data is entered
+        if (v >= nvert || u >= nvert) return; 
+
+        adj[v].push_back(connection(u,w));
+        adj[u].push_back(connection(v,w));
+    }
+
+    vector<int> bfs(int startVertex) {
+        vector<int> distances(nvert, -1);
+        
+        // OPTIMIZATION 2: Replaced unordered_set with a simple boolean vector
+        vector<bool> visited(nvert, false);
+        queue<int> q;
+
+        // Safety check if the start point is somehow out of bounds
+        if (startVertex >= nvert) return distances;
+
+        q.push(startVertex);
+        visited[startVertex] = true;
+        distances[startVertex] = 0;
+
+        while (!q.empty()) {
+            int current = q.front();
+            q.pop();
+
+            for (const connection& con : adj[current]) {
+                if (!visited[con.vertex]) {
+                    visited[con.vertex] = true;
+                    distances[con.vertex] = distances[current] + 1;
+                    q.push(con.vertex);
+                }
+            }
+        }
+
+        return distances;
+    }
+};
+
+struct g {
+    int v;
+    int u;
+    g(int x,int c) : v(x), u(c) {}
+};
+
+int main() {
+    int n; 
+    if (!(cin >> n)) return 0;
+    
+    vector<g> edges;
+
+    // Pass 'n' to the constructor so it pre-allocates the exact memory needed
+    Graph graph(n);
+
+    while (true) {
+        int a, b;
+        cin >> a >> b;
+
+        if (a == -1 && b == -1) break;
+
+        edges.push_back({a, b});
+    }
+
+    int curr, zom, bunk;
+    cin >> curr >> zom >> bunk;
+
+    for (g edge : edges) {
+        if (edge.v == zom || edge.u == zom) continue;
+        
+        graph.addEdge(edge.u, edge.v, 1);
+    }
+
+    // Safely retrieve the answer, guarding against bunker out-of-bounds
+    vector<int> results = graph.bfs(curr);
+    
+    if (bunk < results.size()) {
+        cout << results[bunk] << endl;
+    } else {
+        cout << -1 << endl; 
+    }
+
+    return 0;
+}
