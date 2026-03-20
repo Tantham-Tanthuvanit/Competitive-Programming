@@ -75,6 +75,7 @@ int main() {
 	int a,b;
 	while (cin >> a >> b) {
 			if (a == -1 && b == -1) break;
+			if (a >= nv || b >= nv || a < 0 || b < 0) continue;
 			grph.addEdge(a,b,1);
 	}
 
