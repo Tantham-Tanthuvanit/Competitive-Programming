@@ -84,5 +84,10 @@ struct weightedGraph {
 
 int main() {
 
+int a;
+cin >> a;
+cout << "hello, world";
+getchar();
+
 return 0;
 }

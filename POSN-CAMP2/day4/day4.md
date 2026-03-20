@@ -2,7 +2,6 @@
 
 > [!NOTE] CP AND PASTE CHARS ✅⚠️❌
 
-
 |PROBLEMS|STATUS|SCORE|
 |-|-|-|
 |1_BasicGraphMatrix| ✅ | 50/50|

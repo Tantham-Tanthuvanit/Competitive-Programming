@@ -1,0 +1,7 @@
+# DAY 5
+
+> [!NOTE] CP AND PASTE CHARS ✅⚠️❌
+
+|PROBLEMS|STATUS|SCORE|
+|-|-|-|
+|1|X|0/0|
